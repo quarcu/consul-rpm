@@ -10,8 +10,9 @@ echo "Setting up rpm dev tree..."
 rpmdev-setuptree
 
 echo "Linking files..."
-ln -s /vagrant/SPECS/consul.spec $HOME/rpmbuild/SPECS/
-find /vagrant/SOURCES -type f -exec ln -s {} $HOME/rpmbuild/SOURCES/ \\;
+echo $HOME
+ln -sv /vagrant/SPECS/consul.spec $HOME/rpmbuild/SPECS/
+find /vagrant/SOURCES -type f -exec ln -sv {} $HOME/rpmbuild/SOURCES/ \\;
 
 echo "Downloading dependencies..."
 spectool -g -R rpmbuild/SPECS/consul.spec
@@ -30,6 +31,8 @@ SCRIPT
 Vagrant.configure(2) do |config|
 
   config.vm.box = ""
+  config.vm.box_check_update = false
+  config.vbguest.auto_update = false
 
   config.vm.provision "shell", inline: $rpmbuild_script, privileged: false
 
