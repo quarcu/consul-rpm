@@ -53,6 +53,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/sysconfig
 cp %{SOURCE1} %{buildroot}/%{_sysconfdir}/sysconfig/%{name}
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 mkdir -p %{buildroot}/%{_datadir}/%{name}-ui
+cp -r static %{buildroot}/%{_datadir}/%{name}-ui
+cp index.html %{buildroot}/%{_datadir}/%{name}-ui
 
 
 %if 0%{?fedora} >= 14 || 0%{?rhel} >= 7
@@ -113,7 +115,6 @@ rm -rf %{buildroot}
 %files ui
 %config(noreplace) %attr(-, root, consul) %{_prefix}/share/%{name}-ui
 %attr(640, root, consul) %{_sysconfdir}/%{name}.d/consul-ui.json
-
 
 %doc
 
